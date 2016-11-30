@@ -35,4 +35,25 @@ class BookingRepository
             ->where('type', $data['room'])
             ->update($updates);
     }
+
+    public function updateSingleRooms($id, $room)
+    {
+        return Booking::where('id', $id)->update(['available_room' => $room]);
+    }
+
+    public function updateSinglePrices($id, $price)
+    {
+        return Booking::where('id', $id)->update(['price' => $price]);
+    }
+
+    public function updateDoubleRooms($id, $room)
+    {
+        return Booking::where('id', $id)->update(['available_room' => $room]);
+    }
+
+    public function updateDoublePrices($id, $price)
+    {
+        return Booking::where('id', $id)->update(['price' => $price]);
+    }
+
 }

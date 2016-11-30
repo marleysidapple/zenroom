@@ -1,28 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Booking Template</title>
+@extends('layouts.master')
 
-    <!-- Bootstrap -->
-   <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+@section('main')
+ 
+@if(Session::has('message'))
+<div class="alert alert-info">
+  <span>{{Session::get('message')}}</span>
+</div>
+@endif
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="container main">
+ <div id="singler" title="Update Details">
+    <form method="post" action="{{url('booking/singleroom')}}">
+    {!! csrf_field() !!}
+    <input type="hidden" name="columnid" id="columnid">
+    <input type="text" name="singleroom" id="singleroom" required>
+    <button type="submit" class="updaterow">Update</button>
+    </form>
+</div>
+
+ <div id="singlep" title="Update Details">
+    <form method="post" action="{{url('booking/singleprice')}}">
+    {!! csrf_field() !!}
+    <input type="hidden" name="columnid" id="columnid1">
+    <input type="text" name="singleprice" id="singleprice" required>
+    <button type="submit" class="updaterow">Update</button>
+    </form>
+</div>
+
+ <div id="doubler" title="Update Details">
+    <form method="post" action="{{url('booking/doubleroom')}}">
+    {!! csrf_field() !!}
+    <input type="hidden" name="columnid" id="columnid2">
+    <input type="text" name="doubleroom" id="doubleroom" required>
+    <button type="submit" class="updaterow">Update</button>
+    </form>
+</div>
+
+ <div id="doublep" title="Update Details">
+    <form method="post" action="{{url('booking/doubleprice')}}">
+    {!! csrf_field() !!}
+    <input type="hidden" name="columnid" id="columnid3">
+    <input type="text" name="doubleprice" id="doubleprice" required>
+    <button type="submit" class="updaterow">Update</button>
+    </form>
+</div>
 
     <div class="row">
         <div class="panel panel-default">
@@ -43,10 +63,6 @@
       </div>
 
       <div class="panel-body">
-
-
-
-
 
           <div class="col-sm-3 row">
 
@@ -179,13 +195,13 @@
 
               <tr>
                @foreach($singleBooking as $room)
-                <td>{{$room->available_room}}</td>
+                <td><span class="singleroom" attr="{{$room->id}}">{{$room->available_room}}</span></td>
                @endforeach
               </tr>
 
                <tr>
                 @foreach($singleBooking as $price)
-                <td>{{$price->price}}</td>
+                <td><span class="singleprice" attr="{{$price->id}}">{{$price->price}}</span></td>
                @endforeach
               </tr>
 
@@ -195,13 +211,13 @@
 
                <tr>
                @foreach($doubleBooking as $room)
-                <td>{{$room->available_room}}</td>
+                <td><span class="doubleroom" attr="{{$room->id}}">{{$room->available_room}}</span></td>
                @endforeach
               </tr>
 
                <tr>
                 @foreach($doubleBooking as $price)
-                <td>{{$price->price}}</td>
+                <td><span class="doubleprice" attr="{{$price->id}}">{{$price->price}}</span></td>
                @endforeach
               </tr>
 
@@ -209,94 +225,4 @@
             </table>
           </div>
         </div>
-    </div>
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-   <script>
-      $( function(){
-        $( ".datepicker" ).datepicker({
-           changeMonth: true,
-           changeYear: true,
-           minDate: 0,
-        });
-      });
-
-      $('#all').change(function(){
-           if($("#all").is(":checked")){
-              $("input:checkbox").prop('checked',this.checked);
-          } else {
-           $("input:checkbox").prop('checked',false);
-          }
-      });
-
-         $('#weekdays').change(function(){
-           if($("#weekdays").is(":checked")){
-              $("input:checkbox.weekday").prop('checked',this.checked);
-          } else{
-             $("input:checkbox#all").prop('checked',false);
-             $("input:checkbox.weekday").prop('checked',false);
-          
-          }
-      });
-
-
-      $('#weekends').change(function(){
-           if($("#weekends").is(":checked")){
-              $("input:checkbox.weekend").prop('checked',this.checked);
-          } else {
-               $("input:checkbox#all").prop('checked',false);
-             $("input:checkbox.weekend").prop('checked',false);
-          }
-      });
-
-      $('.weekday').change(function(){
-        if ($("input:checkbox.weekday:checked").length < 5){
-           $("input:checkbox#weekdays").prop('checked',false);
-           $("input:checkbox#all").prop('checked',false);
-        } else {
-            $("input:checkbox#weekdays").prop('checked',true);
-            $("input:checkbox#weekends").prop('checked',false);
-        } 
-
-      });
-
-       $('.weekend').change(function(){
-        if ($("input:checkbox.weekend:checked").length < 2){
-           $("input:checkbox#weekends").prop('checked',false);
-           $("input:checkbox#all").prop('checked',false);
-
-        } else {
-           $("input:checkbox#weekends").prop('checked',true);
-           $("input:checkbox#weekdays").prop('checked',false);
-        }
-
-      });
-
-
-       $('.weekday, .weekend').change(function(){
-        if ($("input:checkbox.weekday:checked").length == 5 && $("input:checkbox.weekend:checked").length == 2){
-           $("input:checkbox#all").prop('checked',true);
-           $("input:checkbox#weekends").prop('checked',true);
-           $("input:checkbox#weekdays").prop('checked',true);
-        } 
-
-      });
-
-
-
-
-     
-
-
-
-
-
-
-
-  </script>
-  </body>
-</html>
+  @endsection
