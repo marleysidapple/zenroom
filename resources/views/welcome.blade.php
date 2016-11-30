@@ -43,11 +43,11 @@
       </div>
 
       <div class="panel-body">
-         
 
-         
-             
-              
+
+
+
+
           <div class="col-sm-3 row">
 
           <div class="col-sm-3">
@@ -59,7 +59,8 @@
                <div class="form-group">
                 <label for="inputEmail3" class="col-sm-3 control-label">From:</label>
                 <div class="col-sm-9">
-                  <input type="text" name="from" class="form-control datepicker" id="inputEmail3">
+                  <input type="text" name="from" autocomplete="off" class="form-control datepicker" id="inputEmail3">
+                   @if ($errors->has('from'))<span class="help-block">{{ $errors->first('from') }} </span>@endif
                 </div>
                 <div class="clearfix"></div>
               </div>
@@ -67,7 +68,8 @@
               <div class="form-group">
                 <label for="inputPassword3" class="col-sm-3 control-label">To:</label>
                 <div class="col-sm-9">
-                  <input type="text" name="to" class="form-control datepicker" id="inputPassword3">
+                  <input type="text" name="to" autocomplete="off" class="form-control datepicker" id="inputPassword3">
+                    @if ($errors->has('to'))<span class="help-block">{{ $errors->first('to') }} </span>@endif
                 </div>
               </div>
             </div>
@@ -80,36 +82,35 @@
                  <label for="inputEmail3" class="col-sm-2 control-label" style="margin-top: 10px;">Refine Days:</label>
                   <div class="col-sm-3">
                     <ul class="checklist">
-                      <li> <div class="checkbox"><label><input type="checkbox" name="days[]" value="all">All Days</label></div></li>
-                      <li> <div class="checkbox"><label><input type="checkbox" name="days[]" value="weekday">All Weekdays</label></div></li>
-                      <li> <div class="checkbox"><label><input type="checkbox" name="days[]" value="weekend">All Weekeneds</label></div></li>
+                      <li> <div class="checkbox"><label><input type="checkbox" id="all">All Days</label></div></li>
+                      <li> <div class="checkbox"><label><input type="checkbox" id="weekdays">All Weekdays</label></div></li>
+                      <li> <div class="checkbox"><label><input type="checkbox" id="weekends">All Weekends</label></div></li>
                     </ul>
                   </div>
 
                   <div class="col-sm-3">
                      <ul class="checklist">
-                      <li> <div class="checkbox"><label><input type="checkbox" name="days[]" value="mon">Mondays</label></div></li>
-                      <li> <div class="checkbox"><label><input type="checkbox" name="days[]" value="tue">Tuesdays</label></div></li>
-                      <li> <div class="checkbox"><label><input type="checkbox" name="days[]" value="wed">Wednesdays</label></div></li>
+                      <li> <div class="checkbox"><label><input type="checkbox" class="weekday" name="days[]" value="1">Mondays</label></div></li>
+                      <li> <div class="checkbox"><label><input type="checkbox" class="weekday"  name="days[]" value="2">Tuesdays</label></div></li>
+                      <li> <div class="checkbox"><label><input type="checkbox" class="weekday" name="days[]" value="3">Wednesdays</label></div></li>
                     </ul>
                   </div>
                   <div class="col-sm-2">
                      <ul class="checklist">
-                      <li> <div class="checkbox"><label><input type="checkbox" name="days[]" value="thu">Thursday</label></div></li>
-                      <li> <div class="checkbox"><label><input type="checkbox" name="days[]" value="fri">Fridays</label></div></li>
-                      <li> <div class="checkbox"><label><input type="checkbox" name="days[]" value="sat">Saturdays</label></div></li>
+                      <li> <div class="checkbox"><label><input type="checkbox" class="weekday" name="days[]" value="4">Thursday</label></div></li>
+                      <li> <div class="checkbox"><label><input type="checkbox" class="weekday" name="days[]" value="5">Fridays</label></div></li>
+                      <li> <div class="checkbox"><label><input type="checkbox" class="weekend" name="days[]" value="6">Saturdays</label></div></li>
                     </ul>
                   </div>
 
                    <div class="col-sm-2">
                      <ul class="checklist">
-                      <li> <div class="checkbox"><label><input type="checkbox" name="days[]" value="sun">Sundays</label></div></li>
+                      <li> <div class="checkbox"><label><input type="checkbox" class="weekend" name="days[]" value="0">Sundays</label></div></li>
                     </ul>
                   </div>
              </div>
+              @if ($errors->has('days'))<span class="help-block">{{ $errors->first('days') }} </span>@endif
            </div>
-
-       
       </div>
 
 
@@ -130,7 +131,7 @@
           </div>
         </div>
       </div>
-     
+
       <div class="panel-footer">
         <button type="submit" class="btn btn-success btn-sm">Update</button>
       </div>
@@ -142,7 +143,7 @@
 
       <div class="row">
         <div class="info-left">
-          <h5 class="head">Price and availability</h5>  
+          <h5 class="head">Price and availability</h5>
 
           <ul class="detail">
             <li><span>Single Room</span></li>
@@ -217,8 +218,85 @@
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
    <script>
       $( function(){
-        $( ".datepicker" ).datepicker();
+        $( ".datepicker" ).datepicker({
+           changeMonth: true,
+           changeYear: true,
+           minDate: 0,
+        });
       });
+
+      $('#all').change(function(){
+           if($("#all").is(":checked")){
+              $("input:checkbox").prop('checked',this.checked);
+          } else {
+           $("input:checkbox").prop('checked',false);
+          }
+      });
+
+         $('#weekdays').change(function(){
+           if($("#weekdays").is(":checked")){
+              $("input:checkbox.weekday").prop('checked',this.checked);
+          } else{
+             $("input:checkbox#all").prop('checked',false);
+             $("input:checkbox.weekday").prop('checked',false);
+          
+          }
+      });
+
+
+      $('#weekends').change(function(){
+           if($("#weekends").is(":checked")){
+              $("input:checkbox.weekend").prop('checked',this.checked);
+          } else {
+               $("input:checkbox#all").prop('checked',false);
+             $("input:checkbox.weekend").prop('checked',false);
+          }
+      });
+
+      $('.weekday').change(function(){
+        if ($("input:checkbox.weekday:checked").length < 5){
+           $("input:checkbox#weekdays").prop('checked',false);
+           $("input:checkbox#all").prop('checked',false);
+        } else {
+            $("input:checkbox#weekdays").prop('checked',true);
+            $("input:checkbox#weekends").prop('checked',false);
+        } 
+
+      });
+
+       $('.weekend').change(function(){
+        if ($("input:checkbox.weekend:checked").length < 2){
+           $("input:checkbox#weekends").prop('checked',false);
+           $("input:checkbox#all").prop('checked',false);
+
+        } else {
+           $("input:checkbox#weekends").prop('checked',true);
+           $("input:checkbox#weekdays").prop('checked',false);
+        }
+
+      });
+
+
+       $('.weekday, .weekend').change(function(){
+        if ($("input:checkbox.weekday:checked").length == 5 && $("input:checkbox.weekend:checked").length == 2){
+           $("input:checkbox#all").prop('checked',true);
+           $("input:checkbox#weekends").prop('checked',true);
+           $("input:checkbox#weekdays").prop('checked',true);
+        } 
+
+      });
+
+
+
+
+     
+
+
+
+
+
+
+
   </script>
   </body>
 </html>

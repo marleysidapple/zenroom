@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\BookingRequest;
+
 use App\Booking;
 use App\Repositories\BookingRepository;
 
@@ -18,7 +20,6 @@ class BookingController extends Controller
 
     public function index()
     {
-
         $singleBooking = $this->booking->getAvailability('single');
         $doubleBooking = $this->booking->getAvailability('double');
 
@@ -35,7 +36,7 @@ class BookingController extends Controller
 
 
 
-    public function updateData(Request $request)
+    public function updateData(BookingRequest $request)
     {
     	$datas = $this->booking->updateDetail($request->all());
     	
