@@ -14,7 +14,7 @@
     <input type="hidden" name="columnid" id="columnid">
     <input type="number" autocomplete="off" name="singleroom" id="singleroom" required>
     <span class="help-block"></span>
-    <button type="submit" class="updaterow">Update</button>
+    <button type="submit" class="btn btn-default btn-sm updaterow">Update</button>
     </form>
 </div>
 
@@ -23,7 +23,7 @@
     {!! csrf_field() !!}
     <input type="hidden" name="columnid" id="columnid1">
     <input type="text" name="singleprice" id="singleprice" required>
-    <button type="submit" class="updaterow">Update</button>
+    <button type="submit" class="btn btn-default btn-sm updaterow">Update</button>
     </form>
 </div>
 
@@ -33,7 +33,7 @@
     <input type="hidden" name="columnid" id="columnid2">
     <input type="number" autocomplete="off" name="doubleroom" id="doubleroom" required>
     <span class="help-block"></span>
-    <button type="submit" class="updaterow">Update</button>
+    <button type="submit" class="btn btn-default btn-sm updaterow">Update</button>
     </form>
 </div>
 
@@ -42,7 +42,7 @@
     {!! csrf_field() !!}
     <input type="hidden" name="columnid" id="columnid3">
     <input type="text" name="doubleprice" id="doubleprice" required>
-    <button type="submit" class="updaterow">Update</button>
+    <button type="submit" class="btn btn-default btn-sm updaterow">Update</button>
     </form>
 </div>
 
