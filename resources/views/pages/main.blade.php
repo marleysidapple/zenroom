@@ -22,7 +22,7 @@
     <form method="post" action="{{url('booking/singleprice')}}">
     {!! csrf_field() !!}
     <input type="hidden" name="columnid" id="columnid1">
-    <input type="text" name="singleprice" id="singleprice" required>
+    <input type="text" name="singleprice" id="singleprice" class="pri" required>
     <button type="submit" class="btn btn-default btn-sm updaterow">Update</button>
     </form>
 </div>
@@ -41,7 +41,7 @@
     <form method="post" action="{{url('booking/doubleprice')}}">
     {!! csrf_field() !!}
     <input type="hidden" name="columnid" id="columnid3">
-    <input type="text" name="doubleprice" id="doubleprice" required>
+    <input type="text" name="doubleprice" id="doubleprice" class="pri" required>
     <button type="submit" class="btn btn-default btn-sm updaterow">Update</button>
     </form>
 </div>
@@ -166,10 +166,10 @@
           <h5 class="head">Price and availability</h5>
 
           <ul class="detail">
-            <li><span>Single Room</span></li>
+            <li class="single-separator"><span>Single Room</span></li>
             <li><span>Room available</span></li>
             <li><span>Price</span></li>
-            <li><span>Double Room</span></li>
+            <li class="double-separator"><span>Double Room</span></li>
             <li><span>Room available</span></li>
             <li><span>Price</span></li>
           </ul>
