@@ -55,8 +55,8 @@
           <label for="inputEmail3" class="col-sm-1 control-label" style="margin-top: 10px;">Select Room</label>
           <div class="col-sm-2">
             <select class="form-control" name="room">
-              <option value="single">Single</option>
-              <option value="double">Double</option>
+              <option value="single" {{(old('room') == 'single') ? 'selected' : ''}}>Single</option>
+              <option value="double" {{(old('room') == 'double') ? 'selected' : ''}}>Double</option>
             </select>
           </div>
         </div>
@@ -75,7 +75,7 @@
                <div class="form-group">
                 <label for="inputEmail3" class="col-sm-3 control-label">From:</label>
                 <div class="col-sm-9">
-                  <input type="text" name="from" autocomplete="off" class="form-control datepicker" id="inputEmail3">
+                  <input type="text" name="from" autocomplete="off" class="form-control datepicker" id="inputEmail3" value="{{old('from')}}">
                    @if ($errors->has('from'))<span class="help-block">{{ $errors->first('from') }} </span>@endif
                 </div>
                 <div class="clearfix"></div>
@@ -84,7 +84,7 @@
               <div class="form-group">
                 <label for="inputPassword3" class="col-sm-3 control-label">To:</label>
                 <div class="col-sm-9">
-                  <input type="text" name="to" autocomplete="off" class="form-control datepicker" id="inputPassword3">
+                  <input type="text" name="to" autocomplete="off" class="form-control datepicker" id="inputPassword3" value="{{old('to')}}">
                     @if ($errors->has('to'))<span class="help-block">{{ $errors->first('to') }} </span>@endif
                 </div>
               </div>
@@ -106,22 +106,22 @@
 
                   <div class="col-sm-3">
                      <ul class="checklist">
-                      <li> <div class="checkbox"><label><input type="checkbox" class="weekday" name="days[]" value="1">Mondays</label></div></li>
-                      <li> <div class="checkbox"><label><input type="checkbox" class="weekday"  name="days[]" value="2">Tuesdays</label></div></li>
-                      <li> <div class="checkbox"><label><input type="checkbox" class="weekday" name="days[]" value="3">Wednesdays</label></div></li>
+                      <li> <div class="checkbox"><label><input type="checkbox" class="weekday" name="days[]" value="1" {{((old('days') != "") ? (in_array('1', old('days'))) ? 'checked' : '' : '')}}>Mondays</label></div></li>
+                      <li> <div class="checkbox"><label><input type="checkbox" class="weekday"  name="days[]" value="2" {{((old('days') != "") ? (in_array('2', old('days'))) ? 'checked' : '' : '')}}>Tuesdays</label></div></li>
+                      <li> <div class="checkbox"><label><input type="checkbox" class="weekday" name="days[]" value="3" {{((old('days') != "") ? (in_array('3', old('days'))) ? 'checked' : '' : '')}}>Wednesdays</label></div></li>
                     </ul>
                   </div>
                   <div class="col-sm-2">
                      <ul class="checklist">
-                      <li> <div class="checkbox"><label><input type="checkbox" class="weekday" name="days[]" value="4">Thursday</label></div></li>
-                      <li> <div class="checkbox"><label><input type="checkbox" class="weekday" name="days[]" value="5">Fridays</label></div></li>
-                      <li> <div class="checkbox"><label><input type="checkbox" class="weekend" name="days[]" value="6">Saturdays</label></div></li>
+                      <li> <div class="checkbox"><label><input type="checkbox" class="weekday" name="days[]" value="4" {{((old('days') != "") ? (in_array('4', old('days'))) ? 'checked' : '' : '')}}>Thursday</label></div></li>
+                      <li> <div class="checkbox"><label><input type="checkbox" class="weekday" name="days[]" value="5" {{((old('days') != "") ? (in_array('5', old('days'))) ? 'checked' : '' : '')}}>Fridays</label></div></li>
+                      <li> <div class="checkbox"><label><input type="checkbox" class="weekend" name="days[]" value="6" {{((old('days') != "") ? (in_array('6', old('days'))) ? 'checked' : '' : '')}}>Saturdays</label></div></li>
                     </ul>
                   </div>
 
                    <div class="col-sm-2">
                      <ul class="checklist">
-                      <li> <div class="checkbox"><label><input type="checkbox" class="weekend" name="days[]" value="0">Sundays</label></div></li>
+                      <li> <div class="checkbox"><label><input type="checkbox" class="weekend" name="days[]" value="0" {{((old('days') != "") ? (in_array('0', old('days'))) ? 'checked' : '' : '')}}>Sundays</label></div></li>
                     </ul>
                   </div>
              </div>
@@ -135,16 +135,18 @@
          <div class="form-group">
           <label for="inputEmail3" class="col-sm-2 control-label">Change Price To:</label>
           <div class="col-sm-2">
-            <input type="text" name="price" class="form-control" id="inputEmail3">
+            <input type="text" name="price" class="form-control" id="inputEmail3" value="{{old('price')}}">
           </div>
+           @if ($errors->has('price'))<span class="help-block">{{ $errors->first('price') }} </span>@endif
           <div class="clearfix"></div>
         </div>
 
         <div class="form-group">
           <label for="inputPassword3" class="col-sm-2 control-label">Change Availability To:</label>
           <div class="col-sm-2">
-            <input type="text" name="available" class="form-control" id="inputPassword3">
+            <input type="text" name="available" class="form-control" id="inputPassword3" value="{{old('available')}}">
           </div>
+           @if ($errors->has('available'))<span class="help-block">{{ $errors->first('available') }} </span>@endif
         </div>
       </div>
 
@@ -174,7 +176,7 @@
         <div class="my-table">
             <table class="table table-bordered">
               <tr>
-                <td colspan="30" style="text-align: center">November 2016</td>
+                <td colspan="{{count($singleBooking)}}" style="text-align: center">November 2016</td>
               </tr>
 
               <tr>
@@ -190,7 +192,7 @@
               </tr>
 
               <tr class="single-separator">
-                <td colspan="30" style="text-align: center">&nbsp;</td>
+                <td colspan="{{count($singleBooking)}}" style="text-align: center">&nbsp;</td>
               </tr>
 
               <tr>
@@ -206,7 +208,7 @@
               </tr>
 
                <tr class="double-separator">
-                <td colspan="30" style="text-align: center">&nbsp;</td>
+                <td colspan="{{count($singleBooking)}}" style="text-align: center">&nbsp;</td>
               </tr>
 
                <tr>

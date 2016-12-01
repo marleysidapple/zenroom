@@ -27,7 +27,7 @@ class BookingRequest extends Request
             'from'      => 'required',
             'to'        => 'required',
             'price'     => 'numeric',
-            'available' => 'numeric',
+            'available' => 'numeric|between:1,5',
             'days'      => 'required',
         ];
     }
