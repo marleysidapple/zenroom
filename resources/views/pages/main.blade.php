@@ -12,7 +12,8 @@
     <form method="post" action="{{url('booking/singleroom')}}">
     {!! csrf_field() !!}
     <input type="hidden" name="columnid" id="columnid">
-    <input type="text" name="singleroom" id="singleroom" required>
+    <input type="number" autocomplete="off" name="singleroom" id="singleroom" required>
+    <span class="help-block"></span>
     <button type="submit" class="updaterow">Update</button>
     </form>
 </div>
@@ -30,7 +31,8 @@
     <form method="post" action="{{url('booking/doubleroom')}}">
     {!! csrf_field() !!}
     <input type="hidden" name="columnid" id="columnid2">
-    <input type="text" name="doubleroom" id="doubleroom" required>
+    <input type="number" autocomplete="off" name="doubleroom" id="doubleroom" required>
+    <span class="help-block"></span>
     <button type="submit" class="updaterow">Update</button>
     </form>
 </div>
@@ -203,7 +205,7 @@
 
                <tr>
                 @foreach($singleBooking as $price)
-                <td><span class="singleprice" attr="{{$price->id}}">{{$price->price}}</span></td>
+                <td><span class="singleprice" attr="{{$price->id}}">{{$price->price}}</span> IDR</td>
                @endforeach
               </tr>
 
@@ -219,7 +221,7 @@
 
                <tr>
                 @foreach($doubleBooking as $price)
-                <td><span class="doubleprice" attr="{{$price->id}}">{{$price->price}}</span></td>
+                <td><span class="doubleprice" attr="{{$price->id}}">{{$price->price}}</span> IDR</td>
                @endforeach
               </tr>
 
