@@ -176,7 +176,7 @@
         <div class="my-table">
             <table class="table table-bordered">
               <tr>
-                <td colspan="{{count($singleBooking)}}" style="text-align: center">November 2016</td>
+                <td colspan="{{count($singleBooking)}}" style="text-align: center">{{date('F') .' '. date('Y')}}</td>
               </tr>
 
               <tr>

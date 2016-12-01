@@ -16,6 +16,7 @@ class BookingRepository
     }
     public function updateDetail($data)
     {
+
         $allDates = array();
         foreach ($data['days'] as $val) {
             $dates = GH::getSpecificDays($data['from'], $data['to'], $val);
@@ -24,10 +25,10 @@ class BookingRepository
             }
         }
         $updates = array();
-        if (isset($data['price'])) {
+        if ($data['price'] != "") {
             $updates['price'] = $data['price'];
         }
-        if (isset($data['available'])) {
+        if ($data['available'] != "") {
             $updates['available_room'] = $data['available'];
         }
 
